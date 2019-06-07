@@ -1,0 +1,42 @@
+---
+title: "BIMM 143 Homework 6"
+author: "Fangchao He"
+date: "4/24/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## **Function that can analyze PDB data**
+### **Inputs (Arguments)**
+
+**name**: name of the protein as a PDB 4-digit alphanumerical identifier.
+
+**chainUsed**: chain used in the protein for the plot. Default: "A", chain A.
+
+**eletyUsed**: atom type. Default: "CA", C-alpha.
+
+### **What the function does**
+
+The function plots a  graph of B-factor vs. residue for the chain of protein specified in PDB. Input the arguments above and run the function to obtain the graph.
+
+### **Output**
+returns nothing
+
+plots a graph of B-factor versus residue
+
+### **Code**
+```{r}
+# Load the package
+library(bio3d)
+
+# Function starts here
+plot_B_factor <- function(name, chainUsed = "A", eletyUsed = "CA") {
+  s <- read.pdb(name)
+  new <- trim.pdb(s, chain = chainUsed, elety = eletyUsed)
+  plotb3(new$atom$b, sse = new, typ = "l", ylab = "Bfactor")
+}
+# Function ends
+```
